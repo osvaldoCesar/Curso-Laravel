@@ -10,6 +10,10 @@
 //  window.Vue = require('vue');
 import Vue from 'vue';
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
  /**
   * The following block of code may be used to automatically register your
   * Vue components. It will recursively scan this directory for the Vue
@@ -29,7 +33,7 @@ import Vue from 'vue';
   * or customize the JavaScript scaffolding to fit your unique needs.
   */
 
-import router from './routes'
+import router from './routes';
 
  const app = new Vue({
      el: '#app',
