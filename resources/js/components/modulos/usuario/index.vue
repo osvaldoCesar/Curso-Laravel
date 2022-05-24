@@ -32,7 +32,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3 col-form-label">Nombre</label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" v-model="fillBsqUsuario.cNombre">
+                                                        <input type="text" class="form-control" v-model="fillBsqUsuario.cNombre" @keyup.enter="getListarUsuarios">
                                                     </div>
                                                 </div>
                                             </div>
@@ -41,7 +41,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3 col-form-label">Usuario</label>
                                                     <div class="col-md-9">
-                                                        <input type="text" class="form-control" v-model="fillBsqUsuario.cUsuario">
+                                                        <input type="text" class="form-control" v-model="fillBsqUsuario.cUsuario" @keyup.enter="getListarUsuarios">
                                                     </div>
                                                 </div>
                                             </div>
@@ -50,7 +50,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3 col-form-label">Correo Electrónico</label>
                                                     <div class="col-md-9">
-                                                        <input type="email" class="form-control" v-model="fillBsqUsuario.cCorreo">
+                                                        <input type="email" class="form-control" v-model="fillBsqUsuario.cCorreo" @keyup.enter="getListarUsuarios">
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,7 +239,7 @@ import axios from 'axios';
                         'cEstado'  : this.fillBsqUsuario.cEstado,
                     }
                 }).then(response => {
-                    console.log( response.data );
+                    this.inicializarPaginacion();
                     this.listUsuarios =  response.data;
                 })
             },
@@ -251,6 +251,9 @@ import axios from 'axios';
             },
             selectPage(page){
                 this.pageNumber = page;
+            },
+            inicializarPaginacion(){
+                this.pagenumber = 0;
             }
         }
     }

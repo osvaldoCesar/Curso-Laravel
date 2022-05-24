@@ -7455,7 +7455,8 @@ __webpack_require__.r(__webpack_exports__);
           'cEstado': this.fillBsqUsuario.cEstado
         }
       }).then(function (response) {
-        console.log(response.data);
+        _this.inicializarPaginacion();
+
         _this.listUsuarios = response.data;
       });
     },
@@ -7467,6 +7468,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectPage: function selectPage(page) {
       this.pageNumber = page;
+    },
+    inicializarPaginacion: function inicializarPaginacion() {
+      this.pagenumber = 0;
     }
   }
 });
@@ -7834,31 +7838,32 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
     path: '/',
     component: (__webpack_require__(/*! ./components/modulos/dashboard/index */ "./resources/js/components/modulos/dashboard/index.vue")["default"])
   }, {
-    path: '/categoria',
-    component: (__webpack_require__(/*! ./components/modulos/categoria/index */ "./resources/js/components/modulos/categoria/index.vue")["default"])
+    path: '/pedido',
+    component: (__webpack_require__(/*! ./components/modulos/pedido/index */ "./resources/js/components/modulos/pedido/index.vue")["default"])
   }, {
     path: '/cliente',
     component: (__webpack_require__(/*! ./components/modulos/cliente/index */ "./resources/js/components/modulos/cliente/index.vue")["default"])
   }, {
-    path: '/pedido',
-    component: (__webpack_require__(/*! ./components/modulos/pedido/index */ "./resources/js/components/modulos/pedido/index.vue")["default"])
-  }, {
-    path: '/permiso',
-    component: (__webpack_require__(/*! ./components/modulos/permiso/index */ "./resources/js/components/modulos/permiso/index.vue")["default"])
+    path: '/categoria',
+    component: (__webpack_require__(/*! ./components/modulos/categoria/index */ "./resources/js/components/modulos/categoria/index.vue")["default"])
   }, {
     path: '/producto',
     component: (__webpack_require__(/*! ./components/modulos/producto/index */ "./resources/js/components/modulos/producto/index.vue")["default"])
   }, {
-    path: '/reporte',
-    component: (__webpack_require__(/*! ./components/modulos/reporte/index */ "./resources/js/components/modulos/reporte/index.vue")["default"])
+    path: '/usuario',
+    component: (__webpack_require__(/*! ./components/modulos/usuario/index */ "./resources/js/components/modulos/usuario/index.vue")["default"])
   }, {
     path: '/rol',
     component: (__webpack_require__(/*! ./components/modulos/rol/index */ "./resources/js/components/modulos/rol/index.vue")["default"])
   }, {
-    path: '/usuario',
-    component: (__webpack_require__(/*! ./components/modulos/usuario/index */ "./resources/js/components/modulos/usuario/index.vue")["default"])
+    path: '/permiso',
+    component: (__webpack_require__(/*! ./components/modulos/permiso/index */ "./resources/js/components/modulos/permiso/index.vue")["default"])
+  }, {
+    path: '/reporte',
+    component: (__webpack_require__(/*! ./components/modulos/reporte/index */ "./resources/js/components/modulos/reporte/index.vue")["default"])
   }],
-  mode: 'history'
+  mode: 'history',
+  linkExactActiveClass: 'active'
 }));
 
 /***/ }),
@@ -107382,6 +107387,24 @@ var render = function () {
                               attrs: { type: "text" },
                               domProps: { value: _vm.fillBsqUsuario.cNombre },
                               on: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.getListarUsuarios.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
                                 input: function ($event) {
                                   if ($event.target.composing) {
                                     return
@@ -107420,6 +107443,24 @@ var render = function () {
                               attrs: { type: "text" },
                               domProps: { value: _vm.fillBsqUsuario.cUsuario },
                               on: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.getListarUsuarios.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
                                 input: function ($event) {
                                   if ($event.target.composing) {
                                     return
@@ -107458,6 +107499,24 @@ var render = function () {
                               attrs: { type: "email" },
                               domProps: { value: _vm.fillBsqUsuario.cCorreo },
                               on: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.getListarUsuarios.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
                                 input: function ($event) {
                                   if ($event.target.composing) {
                                     return
@@ -108535,7 +108594,7 @@ var render = function () {
                 [
                   _c(
                     "router-link",
-                    { staticClass: "nav-link", attrs: { to: "/pedido" } },
+                    { staticClass: "nav-link", attrs: { to: "/reporte" } },
                     [
                       _c("i", { staticClass: "nav-icon fas fa-file-export" }),
                       _vm._v(" "),

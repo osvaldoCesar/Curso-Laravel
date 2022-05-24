@@ -73,7 +73,7 @@
                     </li>
                     <li class="nav-header">REPORTES</li>
                     <li class="nav-item">
-                        <router-link :to="'/pedido'" class="nav-link">
+                        <router-link :to="'/reporte'" class="nav-link">
                             <i class="nav-icon fas fa-file-export"></i>
                             <p>Pedidos</p>
                         </router-link>
