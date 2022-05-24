@@ -87,59 +87,78 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card card-info">
                     <div class="card-header">
                         <h3 class="card-title">Bandeja de Resultados</h3>
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-hover table-head-fixed text-nowrap">
-                            <thead>
-                                <tr>
-                                    <th>Fotografía</th>
-                                    <th>Nombre</th>
-                                    <th>correo</th>
-                                    <th>Usuario</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><img src="" alt=""></td>
-                                    <td>Osvaldo César</td>
-                                    <td>osva@gmail.com</td>
-                                    <td>osva123</td>
-                                    <td><span class="badge badge-success">Activo</span></td>
-                                    <td>
-                                        <router-link class="btn btn-primary btn-sm" :to="'/'">
-                                            <i class="fas fa-folder"></i> Ver
-                                        </router-link>
-                                        <router-link  class="btn btn-info btn-sm" :to="'/'">
-                                            <i class="fas fa-pencil-alt"></i> Editar
-                                        </router-link>
-                                        <router-link class="btn btn-success btn-sm" :to="'/'">
-                                            <i class="fas fa-key"></i> Permiso
-                                        </router-link>
-                                        <router-link class="btn btn-danger btn-sm" :to="'/'">
-                                            <i class="fas fa-trash"></i> Desactivar
-                                        </router-link>
-                                        <router-link class="btn btn-success btn-sm" :to="'/'">
-                                            <i class="fas fa-check"></i> Activar
-                                        </router-link>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <template v-if="listarUsuariosPaginated.length">
+                            <table class="table table-hover table-head-fixed text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Fotografía</th>
+                                        <th>Nombre</th>
+                                        <th>correo</th>
+                                        <th>Usuario</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in listarUsuariosPaginated" :key="index">
+                                        <td>
+                                            <li class="user-block">
+                                                <img src="/img/avatar.png" :alt="item.username" class="profile-avatar-img img-fluid img-circle" />
+                                            </li>
+                                        </td>
+                                        <td v-text="item.fullname"></td>
+                                        <td v-text="item.email"></td>
+                                        <td v-text="item.username"></td>
+                                        <td>
+                                            <template v-if="item.state == 'A'">
+                                                <span class="badge badge-success" v-text="item.state_alias"></span>
+                                            </template>
+                                            <template v-else>
+                                                <span class="badge badge-danger" v-text="item.state_alias"></span>
+                                            </template>
+                                        </td>
+                                        <td>
+                                            <router-link class="btn btn-primary btn-sm" :to="'/'">
+                                                <i class="fas fa-folder"></i> Ver
+                                            </router-link>
+                                            <router-link  class="btn btn-info btn-sm" :to="'/'">
+                                                <i class="fas fa-pencil-alt"></i> Editar
+                                            </router-link>
+                                            <router-link class="btn btn-success btn-sm" :to="'/'">
+                                                <i class="fas fa-key"></i> Permiso
+                                            </router-link>
+                                            <router-link class="btn btn-danger btn-sm" :to="'/'">
+                                                <i class="fas fa-trash"></i> Desactivar
+                                            </router-link>
+                                            <router-link class="btn btn-success btn-sm" :to="'/'">
+                                                <i class="fas fa-check"></i> Activar
+                                            </router-link>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </template>
+                        <template v-else>
+                            <div class="callout callout-info">
+                                <h5>No se encontraron registros...</h5>
+                            </div>
+                        </template>
                         <div class="card-footer clearfix">
                             <ul class="pagination pagination-sm m-0 float-right">
-                                <li class="page-item">
-                                    <a href="" class="page-link">Ant</a>
+                                <li class="page-item" v-if="pageNumber > 0">
+                                    <a href="#" class="page-link" @click.prevent="prevPage">Ant</a>
                                 </li>
-                                <li class="page-item">
-                                    <a href="" class="page-link">1</a>
+                                <li class="page-item" v-for="(page, index) in pagesList" :key="index"
+                                    :class="[page == pagenumber ? 'active' : '']">
+                                    <a href="#" class="page-link" @click.prevent="selectPage(page)">{{ page + 1 }}</a>
                                 </li>
-                                <li class="page-item">
-                                    <a href="" class="page-link">Post</a>
+                                <li class="page-item" v-if="pageNumber < pageCount - 1">
+                                    <a href="#" class="page-link" @click.prevent="nextPage">Post</a>
                                 </li>
                             </ul>
                         </div>
@@ -167,8 +186,38 @@ import axios from 'axios';
                 listEstados: [
                     {value: 'A', label: 'Activo'},
                     {value: 'I', label: 'Inactivo'}
-                ]
+                ],
+                pageNumber: 0,
+                perPage: 5
             }
+        },
+        computed: {
+            // Obtener el número de páginas
+            pageCount(){
+                let a = this.listUsuarios.length,
+                    b = this.perPage;
+                return Math.ceil(a / b);
+            },
+            // Obtener registros paginados
+            listarUsuariosPaginated(){
+                let inicio = this.pageNumber * this.perPage,
+                    fin    = inicio + this.perPage;
+                return this.listUsuarios.slice(inicio, fin);
+            },
+            //
+            pagesList() {
+                let a = this.listUsuarios.length,
+                    b = this.perPage;
+                let pageCount = Math.ceil(a / b);
+                let count = 0,
+                    pagesArray = [];
+                while (count < pageCount) {
+                    pagesArray.push(count);
+                    count++;
+                }
+                return pagesArray;
+            }
+
         },
         methods: {
             limpiarCriteriosBsq(){
@@ -191,7 +240,17 @@ import axios from 'axios';
                     }
                 }).then(response => {
                     console.log( response.data );
+                    this.listUsuarios =  response.data;
                 })
+            },
+            nextPage() {
+                this.pageNumber++;
+            },
+            prevPage() {
+                this.pageNumber--;
+            },
+            selectPage(page){
+                this.pageNumber = page;
             }
         }
     }

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Administracion\UsersController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +19,10 @@ Route::get('/{optional?}', function () {
     return view('app');
 })->name('basepath');
 
-Route::get('/administracion/usuario/getListarUsuarios', 'Administracion\UsersController@getListarUsuarios');
+Route::get("/administracion/usuario/getListarUsuarios", [UsersController::class, "getListarUsuarios"]);
 
+// Route::get('/administracion/usuario/getListarUsuarios', 'App\Http\Controllers\Administracion\UsersController@getListarUsuarios');
+// Route::get("/administracion/usuario/getListarUsuarios", "App\\Http\\Controllers\\Administracion\\UsersController@getListarUsuarios");
+// Route::get('/', 'Administracion\UsersController@getListarUsuarios')->name('getListarUsuarios');
+// Route::get('/administracion/usuario/getListarUsuarios', 'Administracion\UsersController@getListarUsuarios')->name('home');
+// Route::get('/administracion/usuario/getListarUsuarios','Administracion\UsersController@getListarUsuarios');

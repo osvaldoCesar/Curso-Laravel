@@ -7363,6 +7363,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -7380,8 +7399,39 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         value: 'I',
         label: 'Inactivo'
-      }]
+      }],
+      pageNumber: 0,
+      perPage: 5
     };
+  },
+  computed: {
+    // Obtener el número de páginas
+    pageCount: function pageCount() {
+      var a = this.listUsuarios.length,
+          b = this.perPage;
+      return Math.ceil(a / b);
+    },
+    // Obtener registros paginados
+    listarUsuariosPaginated: function listarUsuariosPaginated() {
+      var inicio = this.pageNumber * this.perPage,
+          fin = inicio + this.perPage;
+      return this.listUsuarios.slice(inicio, fin);
+    },
+    //
+    pagesList: function pagesList() {
+      var a = this.listUsuarios.length,
+          b = this.perPage;
+      var pageCount = Math.ceil(a / b);
+      var count = 0,
+          pagesArray = [];
+
+      while (count < pageCount) {
+        pagesArray.push(count);
+        count++;
+      }
+
+      return pagesArray;
+    }
   },
   methods: {
     limpiarCriteriosBsq: function limpiarCriteriosBsq() {
@@ -7394,6 +7444,8 @@ __webpack_require__.r(__webpack_exports__);
       this.listUsuarios = [];
     },
     getListarUsuarios: function getListarUsuarios() {
+      var _this = this;
+
       var url = '/administracion/usuario/getListarUsuarios';
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(url, {
         params: {
@@ -7404,7 +7456,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (response) {
         console.log(response.data);
+        _this.listUsuarios = response.data;
       });
+    },
+    nextPage: function nextPage() {
+      this.pageNumber++;
+    },
+    prevPage: function prevPage() {
+      this.pageNumber--;
+    },
+    selectPage: function selectPage(page) {
+      this.pageNumber = page;
     }
   }
 });
@@ -107501,110 +107563,256 @@ var render = function () {
           ]),
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card card-info" }, [
           _vm._m(2),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body table-responsive" }, [
-            _c(
-              "table",
-              { staticClass: "table table-hover table-head-fixed text-nowrap" },
-              [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Osvaldo César")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("osva@gmail.com")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("osva123")]),
-                    _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body table-responsive" },
+            [
+              _vm.listarUsuariosPaginated.length
+                ? [
                     _c(
-                      "td",
+                      "table",
+                      {
+                        staticClass:
+                          "table table-hover table-head-fixed text-nowrap",
+                      },
                       [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-primary btn-sm",
-                            attrs: { to: "/" },
-                          },
-                          [
-                            _c("i", { staticClass: "fas fa-folder" }),
-                            _vm._v(
-                              " Ver\n                                    "
-                            ),
-                          ]
-                        ),
+                        _vm._m(3),
                         _vm._v(" "),
                         _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-info btn-sm",
-                            attrs: { to: "/" },
-                          },
-                          [
-                            _c("i", { staticClass: "fas fa-pencil-alt" }),
-                            _vm._v(
-                              " Editar\n                                    "
-                            ),
-                          ]
+                          "tbody",
+                          _vm._l(
+                            _vm.listarUsuariosPaginated,
+                            function (item, index) {
+                              return _c("tr", { key: index }, [
+                                _c("td", [
+                                  _c("li", { staticClass: "user-block" }, [
+                                    _c("img", {
+                                      staticClass:
+                                        "profile-avatar-img img-fluid img-circle",
+                                      attrs: {
+                                        src: "/img/avatar.png",
+                                        alt: item.username,
+                                      },
+                                    }),
+                                  ]),
+                                ]),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(item.fullname),
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: { textContent: _vm._s(item.email) },
+                                }),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    textContent: _vm._s(item.username),
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  [
+                                    item.state == "A"
+                                      ? [
+                                          _c("span", {
+                                            staticClass: "badge badge-success",
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                item.state_alias
+                                              ),
+                                            },
+                                          }),
+                                        ]
+                                      : [
+                                          _c("span", {
+                                            staticClass: "badge badge-danger",
+                                            domProps: {
+                                              textContent: _vm._s(
+                                                item.state_alias
+                                              ),
+                                            },
+                                          }),
+                                        ],
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "btn btn-primary btn-sm",
+                                        attrs: { to: "/" },
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-folder",
+                                        }),
+                                        _vm._v(
+                                          " Ver\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "btn btn-info btn-sm",
+                                        attrs: { to: "/" },
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-pencil-alt",
+                                        }),
+                                        _vm._v(
+                                          " Editar\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "btn btn-success btn-sm",
+                                        attrs: { to: "/" },
+                                      },
+                                      [
+                                        _c("i", { staticClass: "fas fa-key" }),
+                                        _vm._v(
+                                          " Permiso\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "btn btn-danger btn-sm",
+                                        attrs: { to: "/" },
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-trash",
+                                        }),
+                                        _vm._v(
+                                          " Desactivar\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "btn btn-success btn-sm",
+                                        attrs: { to: "/" },
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-check",
+                                        }),
+                                        _vm._v(
+                                          " Activar\n                                        "
+                                        ),
+                                      ]
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ])
+                            }
+                          ),
+                          0
                         ),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-success btn-sm",
-                            attrs: { to: "/" },
-                          },
-                          [
-                            _c("i", { staticClass: "fas fa-key" }),
-                            _vm._v(
-                              " Permiso\n                                    "
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-danger btn-sm",
-                            attrs: { to: "/" },
-                          },
-                          [
-                            _c("i", { staticClass: "fas fa-trash" }),
-                            _vm._v(
-                              " Desactivar\n                                    "
-                            ),
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-success btn-sm",
-                            attrs: { to: "/" },
-                          },
-                          [
-                            _c("i", { staticClass: "fas fa-check" }),
-                            _vm._v(
-                              " Activar\n                                    "
-                            ),
-                          ]
-                        ),
-                      ],
-                      1
+                      ]
                     ),
-                  ]),
-                ]),
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(6),
-          ]),
+                  ]
+                : [_vm._m(4)],
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer clearfix" }, [
+                _c(
+                  "ul",
+                  { staticClass: "pagination pagination-sm m-0 float-right" },
+                  [
+                    _vm.pageNumber > 0
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.prevPage.apply(null, arguments)
+                                },
+                              },
+                            },
+                            [_vm._v("Ant")]
+                          ),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.pagesList, function (page, index) {
+                      return _c(
+                        "li",
+                        {
+                          key: index,
+                          staticClass: "page-item",
+                          class: [page == _vm.pagenumber ? "active" : ""],
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.selectPage(page)
+                                },
+                              },
+                            },
+                            [_vm._v(_vm._s(page + 1))]
+                          ),
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm.pageNumber < _vm.pageCount - 1
+                      ? _c("li", { staticClass: "page-item" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "page-link",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.nextPage.apply(null, arguments)
+                                },
+                              },
+                            },
+                            [_vm._v("Post")]
+                          ),
+                        ])
+                      : _vm._e(),
+                  ],
+                  2
+                ),
+              ]),
+            ],
+            2
+          ),
         ]),
       ]),
     ]),
@@ -107669,40 +107877,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_c("img", { attrs: { src: "", alt: "" } })])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("span", { staticClass: "badge badge-success" }, [_vm._v("Activo")]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer clearfix" }, [
-      _c("ul", { staticClass: "pagination pagination-sm m-0 float-right" }, [
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "" } }, [
-            _vm._v("Ant"),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "" } }, [
-            _vm._v("1"),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "" } }, [
-            _vm._v("Post"),
-          ]),
-        ]),
-      ]),
+    return _c("div", { staticClass: "callout callout-info" }, [
+      _c("h5", [_vm._v("No se encontraron registros...")]),
     ])
   },
 ]
