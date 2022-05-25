@@ -7197,6 +7197,270 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/create.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/create.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      fillCrearUsuario: {
+        cPrimerNombre: '',
+        cSegundoNombre: '',
+        cApellido: '',
+        cUsuario: '',
+        cCorreo: '',
+        cContrasena: '',
+        oFotografia: ''
+      },
+      form: new FormData(),
+      fullscreenLoading: false,
+      modalShow: false,
+      mostrarModal: {
+        display: 'block',
+        bacground: '#0000006b'
+      },
+      ocultarModal: {
+        display: 'none'
+      },
+      error: 0,
+      mensajeError: []
+    };
+  },
+  computed: {},
+  methods: {
+    limpiarCriterios: function limpiarCriterios() {
+      this.fillCrearUsuario.cPrimerNombre = '';
+      this.fillCrearUsuario.cSegundoNombre = '';
+      this.fillCrearUsuario.cApellido = '';
+      this.fillCrearUsuario.cUsuario = '';
+      this.fillCrearUsuario.cCorreo = '';
+      this.fillCrearUsuario.cContrasena = '';
+      this.fillCrearUsuario.oFotografia = '';
+    },
+    abrirModal: function abrirModal() {
+      this.modalShow = !this.modalShow;
+    },
+    getFile: function getFile(e) {
+      this.fillCrearUsuario.oFotografia = e.target.files[0];
+    },
+    setRegistrarUsuario: function setRegistrarUsuario() {
+      if (this.validarRegistroUsuario()) {
+        this.modalShow = true;
+        return;
+      }
+
+      this.fullscreenLoading = true;
+
+      if (!this.fillCrearUsuario.oFotografia || this.fillCrearUsuario.oFotografia == undefined) {
+        this.setGuardarUsuario(0);
+      } else {
+        this.setRegistrarArchivo();
+      }
+    },
+    setRegistrarArchivo: function setRegistrarArchivo() {
+      var _this = this;
+
+      this.form.append('file', this.fillCrearUsuario.oFotografia);
+      var config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      };
+      var url = '/archivo/setRegistrarArchivo';
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, this.form, config).then(function (response) {
+        console.log(response);
+        var nIdFile = response.data[0].nIdFile;
+
+        _this.setGuardarUsuario(nIdFile);
+      });
+    },
+    setGuardarUsuario: function setGuardarUsuario(nIdFile) {
+      var _this2 = this;
+
+      var url = '/administracion/usuario/setRegistrarUsuario';
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, {
+        'cPrimerNombre': this.fillCrearUsuario.cPrimerNombre,
+        'cSegundoNombre': this.fillCrearUsuario.cSegundoNombre,
+        'cApellido': this.fillCrearUsuario.cApellido,
+        'cUsuario': this.fillCrearUsuario.cUsuario,
+        'cCorreo': this.fillCrearUsuario.cCorreo,
+        'cContrasena': this.fillCrearUsuario.cContrasena,
+        'oFotografia': nIdFile
+      }).then(function (response) {
+        console.log("Registro exitoso");
+        _this2.fullscreenLoading = false;
+
+        _this2.$router.push('/usuario');
+      });
+    },
+    validarRegistroUsuario: function validarRegistroUsuario() {
+      this.error = 0;
+      this.mensajeError = [];
+
+      if (!this.fillCrearUsuario.cPrimerNombre) {
+        this.mensajeError.push("El Primer Nombre es un campo obligatorio");
+      }
+
+      if (!this.fillCrearUsuario.cApellido) {
+        this.mensajeError.push("El Apellido es un campo obligatorio");
+      }
+
+      if (!this.fillCrearUsuario.cUsuario) {
+        this.mensajeError.push("El Usuario es un campo obligatorio");
+      }
+
+      if (!this.fillCrearUsuario.cCorreo) {
+        this.mensajeError.push("El Correo es un campo obligatorio");
+      }
+
+      if (!this.fillCrearUsuario.cContrasena) {
+        this.mensajeError.push("La Contraseña es un campo obligatorio");
+      }
+
+      if (this.mensajeError.length) {
+        this.error = 1;
+      }
+
+      return this.error;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/index.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/index.vue?vue&type=script&lang=js& ***!
@@ -7401,7 +7665,8 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Inactivo'
       }],
       pageNumber: 0,
-      perPage: 5
+      perPage: 5,
+      fullscreenLoading: false
     };
   },
   computed: {
@@ -7446,6 +7711,7 @@ __webpack_require__.r(__webpack_exports__);
     getListarUsuarios: function getListarUsuarios() {
       var _this = this;
 
+      this.fullscreenLoading = true;
       var url = '/administracion/usuario/getListarUsuarios';
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(url, {
         params: {
@@ -7458,6 +7724,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.inicializarPaginacion();
 
         _this.listUsuarios = response.data;
+        _this.fullscreenLoading = false;
       });
     },
     nextPage: function nextPage() {
@@ -7853,6 +8120,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
     path: '/usuario',
     component: (__webpack_require__(/*! ./components/modulos/usuario/index */ "./resources/js/components/modulos/usuario/index.vue")["default"])
   }, {
+    path: '/usuario/crear',
+    component: (__webpack_require__(/*! ./components/modulos/usuario/create */ "./resources/js/components/modulos/usuario/create.vue")["default"])
+  }, {
     path: '/rol',
     component: (__webpack_require__(/*! ./components/modulos/rol/index */ "./resources/js/components/modulos/rol/index.vue")["default"])
   }, {
@@ -7863,7 +8133,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
     component: (__webpack_require__(/*! ./components/modulos/reporte/index */ "./resources/js/components/modulos/reporte/index.vue")["default"])
   }],
   mode: 'history',
-  linkExactActiveClass: 'active'
+  linkActiveClass: 'active'
 }));
 
 /***/ }),
@@ -106361,6 +106631,45 @@ component.options.__file = "resources/js/components/modulos/rol/index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/modulos/usuario/create.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/modulos/usuario/create.vue ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _create_vue_vue_type_template_id_e97bd9cc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create.vue?vue&type=template&id=e97bd9cc& */ "./resources/js/components/modulos/usuario/create.vue?vue&type=template&id=e97bd9cc&");
+/* harmony import */ var _create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create.vue?vue&type=script&lang=js& */ "./resources/js/components/modulos/usuario/create.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _create_vue_vue_type_template_id_e97bd9cc___WEBPACK_IMPORTED_MODULE_0__.render,
+  _create_vue_vue_type_template_id_e97bd9cc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/modulos/usuario/create.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/modulos/usuario/index.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/modulos/usuario/index.vue ***!
@@ -106661,6 +106970,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/modulos/usuario/create.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/modulos/usuario/create.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./create.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/create.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/modulos/usuario/index.vue?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/modulos/usuario/index.vue?vue&type=script&lang=js& ***!
@@ -106874,6 +107199,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_21915305___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_21915305___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./index.vue?vue&type=template&id=21915305& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/rol/index.vue?vue&type=template&id=21915305&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/modulos/usuario/create.vue?vue&type=template&id=e97bd9cc&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/modulos/usuario/create.vue?vue&type=template&id=e97bd9cc& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_e97bd9cc___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_e97bd9cc___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_create_vue_vue_type_template_id_e97bd9cc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./create.vue?vue&type=template&id=e97bd9cc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/create.vue?vue&type=template&id=e97bd9cc&");
 
 
 /***/ }),
@@ -107317,6 +107659,557 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/create.vue?vue&type=template&id=e97bd9cc&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/create.vue?vue&type=template&id=e97bd9cc& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c(
+              "div",
+              { staticClass: "card-tools" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-info btn-sm",
+                    attrs: { to: "/usuario" },
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-arrow-left" }),
+                    _vm._v(" Regresar\n                        "),
+                  ]
+                ),
+              ],
+              1
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "card card-info" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("form", { attrs: { role: "form" } }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            { staticClass: "col-md-3 col-form-label" },
+                            [_vm._v("Primer Nombre")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-9" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.fillCrearUsuario.cPrimerNombre,
+                                  expression: "fillCrearUsuario.cPrimerNombre",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: _vm.fillCrearUsuario.cPrimerNombre,
+                              },
+                              on: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.setRegistrarUsuario.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.fillCrearUsuario,
+                                    "cPrimerNombre",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                          ]),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            { staticClass: "col-md-3 col-form-label" },
+                            [_vm._v("Segundo Nombre")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-9" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.fillCrearUsuario.cSegundoNombre,
+                                  expression: "fillCrearUsuario.cSegundoNombre",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: _vm.fillCrearUsuario.cSegundoNombre,
+                              },
+                              on: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.setRegistrarUsuario.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.fillCrearUsuario,
+                                    "cSegundoNombre",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                          ]),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            { staticClass: "col-md-3 col-form-label" },
+                            [_vm._v("Apellido")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-9" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.fillCrearUsuario.cApellido,
+                                  expression: "fillCrearUsuario.cApellido",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: _vm.fillCrearUsuario.cApellido,
+                              },
+                              on: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.setRegistrarUsuario.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.fillCrearUsuario,
+                                    "cApellido",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                          ]),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            { staticClass: "col-md-3 col-form-label" },
+                            [_vm._v("Usuario")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-9" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.fillCrearUsuario.cUsuario,
+                                  expression: "fillCrearUsuario.cUsuario",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: {
+                                value: _vm.fillCrearUsuario.cUsuario,
+                              },
+                              on: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.setRegistrarUsuario.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.fillCrearUsuario,
+                                    "cUsuario",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                          ]),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            { staticClass: "col-md-3 col-form-label" },
+                            [_vm._v("Correo Electrónico")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-9" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.fillCrearUsuario.cCorreo,
+                                  expression: "fillCrearUsuario.cCorreo",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.fillCrearUsuario.cCorreo },
+                              on: {
+                                keyup: function ($event) {
+                                  if (
+                                    !$event.type.indexOf("key") &&
+                                    _vm._k(
+                                      $event.keyCode,
+                                      "enter",
+                                      13,
+                                      $event.key,
+                                      "Enter"
+                                    )
+                                  ) {
+                                    return null
+                                  }
+                                  return _vm.setRegistrarUsuario.apply(
+                                    null,
+                                    arguments
+                                  )
+                                },
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.fillCrearUsuario,
+                                    "cCorreo",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                          ]),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            { staticClass: "col-md-3 col-form-label" },
+                            [_vm._v("Contraseña")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-md-9" },
+                            [
+                              _c("el-input", {
+                                attrs: {
+                                  placeholder: "Ingresa la contraseña",
+                                  "show-password": "",
+                                },
+                                on: {
+                                  keyup: function ($event) {
+                                    if (
+                                      !$event.type.indexOf("key") &&
+                                      _vm._k(
+                                        $event.keyCode,
+                                        "enter",
+                                        13,
+                                        $event.key,
+                                        "Enter"
+                                      )
+                                    ) {
+                                      return null
+                                    }
+                                    return _vm.setRegistrarUsuario.apply(
+                                      null,
+                                      arguments
+                                    )
+                                  },
+                                },
+                                model: {
+                                  value: _vm.fillCrearUsuario.cContrasena,
+                                  callback: function ($$v) {
+                                    _vm.$set(
+                                      _vm.fillCrearUsuario,
+                                      "cContrasena",
+                                      $$v
+                                    )
+                                  },
+                                  expression: "fillCrearUsuario.cContrasena",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "form-group row" }, [
+                          _c(
+                            "label",
+                            { staticClass: "col-md-3 col-form-label" },
+                            [_vm._v("Fotografía")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-9" }, [
+                            _c("input", {
+                              staticClass: "form-control",
+                              attrs: { type: "file" },
+                              on: { change: _vm.getFile },
+                            }),
+                          ]),
+                        ]),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-4 offset-4" }, [
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "loading",
+                        rawName: "v-loading.fullscreen.lock",
+                        value: _vm.fullscreenLoading,
+                        expression: "fullscreenLoading",
+                        modifiers: { fullscreen: true, lock: true },
+                      },
+                    ],
+                    staticClass: "btn btn-flat btn-info btnWidth",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.setRegistrarUsuario.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [_vm._v("Registrar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-flat btn-default btnWidth",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.limpiarCriterios.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [_vm._v("Limpiar")]
+                ),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        class: { show: _vm.modalShow },
+        style: _vm.modalShow ? _vm.mostrarModal : _vm.ocultarModal,
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [
+                  _vm._v("Sistema Laravel y Vue"),
+                ]),
+                _vm._v(" "),
+                _c("button", {
+                  staticClass: "close",
+                  on: { click: _vm.abrirModal },
+                }),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "modal-body" },
+                _vm._l(_vm.mensajeError, function (item, index) {
+                  return _c("div", {
+                    key: index,
+                    staticClass: "callout callout-danger",
+                    staticStyle: { padding: "5px" },
+                    domProps: { textContent: _vm._s(item) },
+                  })
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    on: { click: _vm.abrirModal },
+                  },
+                  [_vm._v("Cerrar")]
+                ),
+              ]),
+            ]),
+          ]
+        ),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h1", { staticClass: "m-0" }, [_vm._v("Crear Usuario")]),
+          ]),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [
+        _vm._v("Formulario Registrar Usuario"),
+      ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/index.vue?vue&type=template&id=5cac87b8&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/modulos/usuario/index.vue?vue&type=template&id=5cac87b8& ***!
@@ -107346,7 +108239,10 @@ var render = function () {
               [
                 _c(
                   "router-link",
-                  { staticClass: "btn btn-info btn-sm", attrs: { to: "/" } },
+                  {
+                    staticClass: "btn btn-info btn-sm",
+                    attrs: { to: "/usuario/crear" },
+                  },
                   [
                     _c("i", { staticClass: "fas fa-plus-square" }),
                     _vm._v(" Nuevo Usuario\n                        "),
@@ -107593,6 +108489,15 @@ var render = function () {
                 _c(
                   "button",
                   {
+                    directives: [
+                      {
+                        name: "loading",
+                        rawName: "v-loading.fullscreen.lock",
+                        value: _vm.fullscreenLoading,
+                        expression: "fullscreenLoading",
+                        modifiers: { fullscreen: true, lock: true },
+                      },
+                    ],
                     staticClass: "btn btn-flat btn-info btnWidth",
                     on: {
                       click: function ($event) {
@@ -107793,82 +108698,91 @@ var render = function () {
                         ),
                       ]
                     ),
-                  ]
-                : [_vm._m(4)],
-              _vm._v(" "),
-              _c("div", { staticClass: "card-footer clearfix" }, [
-                _c(
-                  "ul",
-                  { staticClass: "pagination pagination-sm m-0 float-right" },
-                  [
-                    _vm.pageNumber > 0
-                      ? _c("li", { staticClass: "page-item" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "page-link",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.prevPage.apply(null, arguments)
-                                },
-                              },
-                            },
-                            [_vm._v("Ant")]
-                          ),
-                        ])
-                      : _vm._e(),
                     _vm._v(" "),
-                    _vm._l(_vm.pagesList, function (page, index) {
-                      return _c(
-                        "li",
+                    _c("div", { staticClass: "card-footer clearfix" }, [
+                      _c(
+                        "ul",
                         {
-                          key: index,
-                          staticClass: "page-item",
-                          class: [page == _vm.pagenumber ? "active" : ""],
+                          staticClass:
+                            "pagination pagination-sm m-0 float-right",
                         },
                         [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "page-link",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.selectPage(page)
-                                },
+                          _vm.pageNumber > 0
+                            ? _c("li", { staticClass: "page-item" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "page-link",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.prevPage.apply(
+                                          null,
+                                          arguments
+                                        )
+                                      },
+                                    },
+                                  },
+                                  [_vm._v("Ant")]
+                                ),
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm._l(_vm.pagesList, function (page, index) {
+                            return _c(
+                              "li",
+                              {
+                                key: index,
+                                staticClass: "page-item",
+                                class: [page == _vm.pageNumber ? "active" : ""],
                               },
-                            },
-                            [_vm._v(_vm._s(page + 1))]
-                          ),
-                        ]
-                      )
-                    }),
-                    _vm._v(" "),
-                    _vm.pageNumber < _vm.pageCount - 1
-                      ? _c("li", { staticClass: "page-item" }, [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "page-link",
-                              attrs: { href: "#" },
-                              on: {
-                                click: function ($event) {
-                                  $event.preventDefault()
-                                  return _vm.nextPage.apply(null, arguments)
-                                },
-                              },
-                            },
-                            [_vm._v("Post")]
-                          ),
-                        ])
-                      : _vm._e(),
-                  ],
-                  2
-                ),
-              ]),
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "page-link",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.selectPage(page)
+                                      },
+                                    },
+                                  },
+                                  [_vm._v(_vm._s(page + 1))]
+                                ),
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm.pageNumber < _vm.pageCount - 1
+                            ? _c("li", { staticClass: "page-item" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "page-link",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.nextPage.apply(
+                                          null,
+                                          arguments
+                                        )
+                                      },
+                                    },
+                                  },
+                                  [_vm._v("Post")]
+                                ),
+                              ])
+                            : _vm._e(),
+                        ],
+                        2
+                      ),
+                    ]),
+                  ]
+                : [_vm._m(4)],
             ],
             2
           ),

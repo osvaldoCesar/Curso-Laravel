@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-tools">
-                            <router-link class="btn btn-info btn-sm" :to="'/'">
+                            <router-link class="btn btn-info btn-sm" :to="'/usuario/crear'">
                                 <i class="fas fa-plus-square"></i> Nuevo Usuario
                             </router-link>
                         </div>
@@ -81,7 +81,7 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-4 offset-4">
-                                <button class="btn btn-flat btn-info btnWidth" @click.prevent="getListarUsuarios">Buscar</button>
+                                <button class="btn btn-flat btn-info btnWidth" @click.prevent="getListarUsuarios" v-loading.fullscreen.lock="fullscreenLoading">Buscar</button>
                                 <button class="btn btn-flat btn-default btnWidth" @click.prevent="limpiarCriteriosBsq">Limpiar</button>
                             </div>
                         </div>
@@ -142,26 +142,26 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="card-footer clearfix">
+                                <ul class="pagination pagination-sm m-0 float-right">
+                                    <li class="page-item" v-if="pageNumber > 0">
+                                        <a href="#" class="page-link" @click.prevent="prevPage">Ant</a>
+                                    </li>
+                                    <li class="page-item" v-for="(page, index) in pagesList" :key="index"
+                                        :class="[page == pageNumber ? 'active' : '']">
+                                        <a href="#" class="page-link" @click.prevent="selectPage(page)">{{ page+1 }}</a>
+                                    </li>
+                                    <li class="page-item" v-if="pageNumber < pageCount - 1">
+                                        <a href="#" class="page-link" @click.prevent="nextPage">Post</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </template>
                         <template v-else>
                             <div class="callout callout-info">
                                 <h5>No se encontraron registros...</h5>
                             </div>
                         </template>
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-sm m-0 float-right">
-                                <li class="page-item" v-if="pageNumber > 0">
-                                    <a href="#" class="page-link" @click.prevent="prevPage">Ant</a>
-                                </li>
-                                <li class="page-item" v-for="(page, index) in pagesList" :key="index"
-                                    :class="[page == pagenumber ? 'active' : '']">
-                                    <a href="#" class="page-link" @click.prevent="selectPage(page)">{{ page + 1 }}</a>
-                                </li>
-                                <li class="page-item" v-if="pageNumber < pageCount - 1">
-                                    <a href="#" class="page-link" @click.prevent="nextPage">Post</a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -188,7 +188,8 @@ import axios from 'axios';
                     {value: 'I', label: 'Inactivo'}
                 ],
                 pageNumber: 0,
-                perPage: 5
+                perPage: 5,
+                fullscreenLoading: false,
             }
         },
         computed: {
@@ -230,6 +231,7 @@ import axios from 'axios';
                 this.listUsuarios = [];
             },
             getListarUsuarios(){
+                this.fullscreenLoading = true;
                 var url = '/administracion/usuario/getListarUsuarios'
                 axios.get(url, {
                     params: {
@@ -241,6 +243,7 @@ import axios from 'axios';
                 }).then(response => {
                     this.inicializarPaginacion();
                     this.listUsuarios =  response.data;
+                    this.fullscreenLoading = false;
                 })
             },
             nextPage() {
@@ -254,7 +257,7 @@ import axios from 'axios';
             },
             inicializarPaginacion(){
                 this.pagenumber = 0;
-            }
+            },
         }
     }
 </script>
