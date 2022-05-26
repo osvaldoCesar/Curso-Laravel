@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\Administracion\RolesController;
 use App\Http\Controllers\Administracion\UsersController;
 
 
@@ -20,6 +21,8 @@ Route::get("/administracion/usuario/getListarUsuarios", [UsersController::class,
 Route::post("/administracion/usuario/setRegistrarUsuario", [UsersController::class, "setRegistrarUsuario"]);
 Route::post("/administracion/usuario/setEditarUsuario", [UsersController::class, "setEditarUsuario"]);
 Route::post("/administracion/usuario/setCambiarEstadoUsuario", [UsersController::class, "setCambiarEstadoUsuario"]);
+
+Route::get("/administracion/rol/getListarRoles", [RolesController::class, "getListarRoles"]);
 
 Route::post('/archivo/setRegistrarArchivo', [FilesController::class, "setRegistrarArchivo"]);
 
