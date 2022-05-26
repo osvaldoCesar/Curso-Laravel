@@ -83,7 +83,7 @@ class UsersController extends Controller
         }
         $oFotografia        =      $request->oFotografia;
 
-        $nIdUsuario         =      ($nIdUsuario         ==      NULL) ? ($nIdUsuario        =   0)     :   $nIdUsuario;
+        $nIdUsuario         =      ($nIdUsuario         ==      NULL) ? ($nIdUsuario        =   '')     :   $nIdUsuario;
         $cPrimerNombre      =      ($cPrimerNombre      ==      NULL) ? ($cPrimerNombre     =   '')     :   $cPrimerNombre;
         $cSegundoNombre     =      ($cSegundoNombre     ==      NULL) ? ($cSegundoNombre    =   '')     :   $cSegundoNombre;
         $cApellido          =      ($cApellido          ==      NULL) ? ($cApellido         =   '')     :   $cApellido;
@@ -105,5 +105,21 @@ class UsersController extends Controller
                                                                     ]);
     }
 
+    public function setCambiarEstadoUsuario(Request $request){
+        if(!$request->ajax()) return redirect('/');
+
+        $nIdUsuario         =      $request->nIdUsuario;
+        $cEstado         =      $request->cEstado;
+
+        $nIdUsuario   =      ($nIdUsuario   ==      NULL) ? ($nIdUsuario  =   0)     :   $nIdUsuario;
+        $cEstado      =      ($cEstado      ==      NULL) ? ($cEstado     =   0)     :   $cEstado;
+
+        $rpta        =      DB::select('call sp_Usuario_setCambiarEstadoUsuario(?, ?)',
+                                                                    [
+                                                                        $nIdUsuario,
+                                                                        $cEstado,
+                                                                    ]);
+
+    }
 
 }

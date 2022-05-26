@@ -221,9 +221,13 @@ import axios from 'axios';
                     'cContrasena'       :       this.fillEditarUsuario.cContrasena,
                     'oFotografia'       :       nIdFile,
                 }).then(response => {
-                    console.log( `Registro exitoso` );
                     this.fullscreenLoading = false;
-                    this.$router.push('/usuario');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Se actualizó el usuario correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 });
             },
             validarRegistroUsuario(){
