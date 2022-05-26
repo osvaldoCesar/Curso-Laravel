@@ -25,4 +25,28 @@ class RolesController extends Controller
                                                                     ]);
         return $rpta;
     }
+
+    public function getListarPermisosByRol(Request $request){
+        if(!$request->ajax()) return redirect('/');
+        $rpta = DB::select('call sp_Rol_getListarPermisosByRol');
+        return $rpta;
+    }
+
+    public function setRegistrarRolPermisos(Request $request){
+        if(!$request->ajax()) return redirect('/');
+
+        $cNombre   =      $request->cNombre;
+        $cSlug     =      $request->cSlug;
+
+        $cNombre   =      ($cNombre  ==  NULL) ? ($cNombre  = ''): $cNombre;
+        $cSlug     =      ($cSlug ==  NULL) ? ($cSlug    = ''): $cSlug;
+
+        $rpta        =      DB::select('call sp_Rol_setRegistrarRol(?, ?)',
+                                                                    [
+                                                                        $cNombre,
+                                                                        $cSlug
+                                                                    ]);
+
+        $nIdRol =   $rpta[0]->nIdRol;
+    }
 }

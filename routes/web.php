@@ -16,13 +16,17 @@ use App\Http\Controllers\Administracion\UsersController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Usuarios
 Route::get("/administracion/usuario/getListarUsuarios", [UsersController::class, "getListarUsuarios"]);
 Route::post("/administracion/usuario/setRegistrarUsuario", [UsersController::class, "setRegistrarUsuario"]);
 Route::post("/administracion/usuario/setEditarUsuario", [UsersController::class, "setEditarUsuario"]);
 Route::post("/administracion/usuario/setCambiarEstadoUsuario", [UsersController::class, "setCambiarEstadoUsuario"]);
 
+
+// Roles
 Route::get("/administracion/rol/getListarRoles", [RolesController::class, "getListarRoles"]);
+Route::get("/administracion/rol/getListarPermisosByRol", [RolesController::class, "getListarPermisosByRol"]);
+Route::get("/administracion/rol/setRegistrarRolPermisos", [RolesController::class, "setRegistrarRolPermisos"]);
 
 Route::post('/archivo/setRegistrarArchivo', [FilesController::class, "setRegistrarArchivo"]);
 

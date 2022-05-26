@@ -9,93 +9,91 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-        <div class="card-body">
-            <div class="container-fluid">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-tools">
-                            <router-link class="btn btn-info btn-sm" :to="'/usuario'">
-                                <i class="fas fa-arrow-left"></i> Regresar
-                            </router-link>
-                        </div>
+        <div class="content container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-tools">
+                        <router-link class="btn btn-info btn-sm" :to="'/usuario'">
+                            <i class="fas fa-arrow-left"></i> Regresar
+                        </router-link>
                     </div>
-                    <div class="card-body">
-                        <div class="container-fluid">
-                            <div class="card card-info">
-                                <div class="card-header">
-                                    <h3 class="card-title">Formulario Registrar Usuario</h3>
-                                </div>
-                                <div class="card-body">
-                                    <form role="form">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Primer Nombre</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" v-model="fillCrearUsuario.cPrimerNombre" @keyup.enter="setRegistrarUsuario">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Segundo Nombre</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" v-model="fillCrearUsuario.cSegundoNombre" @keyup.enter="setRegistrarUsuario">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Apellido</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" v-model="fillCrearUsuario.cApellido" @keyup.enter="setRegistrarUsuario">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Usuario</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" v-model="fillCrearUsuario.cUsuario" @keyup.enter="setRegistrarUsuario">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Correo Electrónico</label>
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control" v-model="fillCrearUsuario.cCorreo" @keyup.enter="setRegistrarUsuario">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Contraseña</label>
-                                                    <div class="col-md-9">
-                                                        <el-input placeholder="Ingresa la contraseña" v-model="fillCrearUsuario.cContrasena" @keyup.enter="setRegistrarUsuario" show-password></el-input>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-md-3 col-form-label">Fotografía</label>
-                                                    <div class="col-md-9">
-                                                        <input type="file" class="form-control" @change="getFile">
-                                                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="card card-info">
+                            <div class="card-header">
+                                <h3 class="card-title">Formulario Registrar Usuario</h3>
+                            </div>
+                            <div class="card-body">
+                                <form role="form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Primer Nombre</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" v-model="fillCrearUsuario.cPrimerNombre" @keyup.enter="setRegistrarUsuario">
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Segundo Nombre</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" v-model="fillCrearUsuario.cSegundoNombre" @keyup.enter="setRegistrarUsuario">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Apellido</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" v-model="fillCrearUsuario.cApellido" @keyup.enter="setRegistrarUsuario">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Usuario</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" v-model="fillCrearUsuario.cUsuario" @keyup.enter="setRegistrarUsuario">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Correo Electrónico</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" v-model="fillCrearUsuario.cCorreo" @keyup.enter="setRegistrarUsuario">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Contraseña</label>
+                                                <div class="col-md-9">
+                                                    <el-input placeholder="Ingresa la contraseña" v-model="fillCrearUsuario.cContrasena" @keyup.enter="setRegistrarUsuario" show-password></el-input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Fotografía</label>
+                                                <div class="col-md-9">
+                                                    <input type="file" class="form-control" @change="getFile">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-md-4 offset-4">
-                                <button class="btn btn-flat btn-info btnWidth" @click.prevent="setRegistrarUsuario" v-loading.fullscreen.lock="fullscreenLoading">Registrar</button>
-                                <button class="btn btn-flat btn-default btnWidth" @click.prevent="limpiarCriterios">Limpiar</button>
-                            </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-4 offset-4">
+                            <button class="btn btn-flat btn-info btnWidth" @click.prevent="setRegistrarUsuario" v-loading.fullscreen.lock="fullscreenLoading">Registrar</button>
+                            <button class="btn btn-flat btn-default btnWidth" @click.prevent="limpiarCriterios">Limpiar</button>
                         </div>
                     </div>
                 </div>

@@ -5,12 +5,22 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
+        // Dashboard
         {path: '/', component: require('./components/modulos/dashboard/index').default},
+
+        // Pedidos
         {path: '/pedido', component: require('./components/modulos/pedido/index').default},
+
+        // Clientes
         {path: '/cliente', component: require('./components/modulos/cliente/index').default},
+
+        // Categorías
         {path: '/categoria', component: require('./components/modulos/categoria/index').default},
+
+        // Productos
         {path: '/producto', component: require('./components/modulos/producto/index').default},
 
+        // Usuarios
         {path: '/usuario', component: require('./components/modulos/usuario/index').default},
         {path: '/usuario/crear', component: require('./components/modulos/usuario/create').default},
         {
@@ -26,8 +36,14 @@ export default new Router({
             props: true,
         },
 
+        // Roles
         {path: '/rol', component: require('./components/modulos/rol/index').default},
+        {path: '/rol/crear', component: require('./components/modulos/rol/create').default},
+
+        // Permisos
         {path: '/permiso', component: require('./components/modulos/permiso/index').default},
+
+        // Reportes
         {path: '/reporte', component: require('./components/modulos/reporte/index').default},
     ],
     mode: 'history',
