@@ -41,12 +41,37 @@ class RolesController extends Controller
         $cNombre   =      ($cNombre  ==  NULL) ? ($cNombre  = ''): $cNombre;
         $cSlug     =      ($cSlug ==  NULL) ? ($cSlug    = ''): $cSlug;
 
-        $rpta        =      DB::select('call sp_Rol_setRegistrarRol(?, ?)',
-                                                                    [
-                                                                        $cNombre,
-                                                                        $cSlug
-                                                                    ]);
 
-        $nIdRol =   $rpta[0]->nIdRol;
+
+
+        try {
+            // Irá todo el código que deseamos realizar y se ejecuta el commit
+            DB::beginTransaction();
+
+            $rpta        =      DB::select('call sp_Rol_setRegistrarRol(?, ?)',
+            [
+                                                                            $cNombre,
+                                                                            $cSlug
+                                                                        ]);
+
+            $nIdRol =   $rpta[0]->nIdRol;
+            $listPermisos       =    $request->listPermisosFilter;
+            $listPermisosSize   =    sizeof($listPermisos);
+            if ($listPermisosSize > 0) {
+                foreach ($listPermisos as $key => $value) {
+                    if ($value['checked'] == true) {
+                        DB::select('call sp_Rol_setRegistrarRolPermiso(?, ?)',
+                                                                    [
+                                                                        $nIdRol,
+                                                                        $value['id']
+                                                                    ]);
+                    }
+                }
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            // Capturará algún error ocurrido en el try y se ejecuta el rollback
+            DB::rollBack();
+        }
     }
 }

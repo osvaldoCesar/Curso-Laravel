@@ -29,7 +29,7 @@
                                     <div class="card-body">
                                         <form role="form">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group row">
                                                         <label class="col-md-3 col-form-label">Nombre</label>
                                                         <div class="col-md-9">
@@ -37,7 +37,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group row">
                                                         <label class="col-md-3 col-form-label">Url Amigable</label>
                                                         <div class="col-md-9">
@@ -117,7 +117,6 @@
 
 <script>
 import axios from 'axios';
-
     export default {
         data() {
             return {
@@ -149,7 +148,7 @@ import axios from 'axios';
         methods: {
             limpiarCriterios(){
                 this.fillCrearRol.cNombre  = '';
-                this.fillCrearRol.cUsuario = '';
+                this.fillCrearRol.cSlug = '';
             },
             abrirModal(){
                 this.modalShow = !this.modalShow;
@@ -181,13 +180,13 @@ import axios from 'axios';
                     return;
                 }
                 this.fullscreenLoading = true;
+                console.log(this.fillCrearRol.listPermisosFilter);
                 var url = '/administracion/rol/setRegistrarRolPermisos'
                 axios.post(url, {
                     'cNombre'             :  this.fillCrearRol.cNombre,
                     'cSlug'               :  this.fillCrearRol.cSlug,
-                    'listPermisosFilter'  :  this.fillCrearRol.listPermisosFilter
+                    'listPermisosFilter'  :  this.listPermisosFilter
                 }).then(response => {
-                    console.log( `Registro exitoso` );
                     this.fullscreenLoading = false;
                     this.$router.push('/rol');
                 });
