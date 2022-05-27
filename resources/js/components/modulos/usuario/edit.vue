@@ -162,7 +162,7 @@ import axios from 'axios';
                         'nIdUsuario'  : this.fillEditarUsuario.nIdUsuario,
                     }
                 }).then(response => {
-                    console.log( `${response.data}` );
+                    console.log( response.data );
                     this.fillEditarUsuario.cPrimerNombre   =  response.data[0].firstname;
                     this.fillEditarUsuario.cSegundoNombre  =  response.data[0].secondname;
                     this.fillEditarUsuario.cApellido       =  response.data[0].lastname;

@@ -27,6 +27,7 @@ Route::post("/administracion/usuario/setCambiarEstadoUsuario", [UsersController:
 Route::get("/administracion/rol/getListarRoles", [RolesController::class, "getListarRoles"]);
 Route::get("/administracion/rol/getListarPermisosByRol", [RolesController::class, "getListarPermisosByRol"]);
 Route::post("/administracion/rol/setRegistrarRolPermisos", [RolesController::class, "setRegistrarRolPermisos"]);
+Route::post("/administracion/rol/setEditarRolPermisos", [RolesController::class, "setEditarRolPermisos"]);
 
 Route::post('/archivo/setRegistrarArchivo', [FilesController::class, "setRegistrarArchivo"]);
 
