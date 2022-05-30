@@ -22,6 +22,7 @@ Route::get("/administracion/usuario/getListarUsuarios", [UsersController::class,
 Route::post("/administracion/usuario/setRegistrarUsuario", [UsersController::class, "setRegistrarUsuario"]);
 Route::post("/administracion/usuario/setEditarUsuario", [UsersController::class, "setEditarUsuario"]);
 Route::post("/administracion/usuario/setCambiarEstadoUsuario", [UsersController::class, "setCambiarEstadoUsuario"]);
+Route::post("/administracion/usuario/setEditarRolByUsuario", [UsersController::class, "setEditarRolByUsuario"]);
 
 
 // Roles

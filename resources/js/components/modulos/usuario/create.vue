@@ -77,12 +77,30 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Estado</label>
+                                                <div class="col-md-9">
+                                                    <el-select v-model="fillCrearUsuario.nIdRol"
+                                                    placeholder="Seleccione un rol"
+                                                    clearable>
+                                                        <el-option
+                                                            v-for="item in listRoles"
+                                                            :key="item.id"
+                                                            :label="item.name"
+                                                            :value="item.id">
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Fotografía</label>
                                                 <div class="col-md-9">
                                                     <input type="file" class="form-control" @change="getFile">
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </form>
                             </div>
@@ -132,7 +150,9 @@ import axios from 'axios';
                     cCorreo: '',
                     cContrasena: '',
                     oFotografia: '',
+                    iIdRol: '',
                 },
+                listRoles: [],
                 form: new FormData,
                 fullscreenLoading: false,
                 modalShow: false,
@@ -147,10 +167,18 @@ import axios from 'axios';
                 mensajeError: []
             }
         },
-        computed: {
-
+        mounted() {
+            this.getListarRoles();
         },
         methods: {
+            getListarRoles(){
+                this.fullscreenLoading = true;
+                var url = '/administracion/rol/getListarRoles'
+                axios.get(url).then(response => {
+                    this.listRoles =  response.data;
+                    this.fullscreenLoading = false;
+                })
+            },
             limpiarCriterios(){
                 this.fillCrearUsuario.cPrimerNombre  = '';
                 this.fillCrearUsuario.cSegundoNombre = '';
@@ -199,7 +227,15 @@ import axios from 'axios';
                     'cContrasena'       :       this.fillCrearUsuario.cContrasena,
                     'oFotografia'       :       nIdFile,
                 }).then(response => {
-                    console.log( `Registro exitoso` );
+                    this.setEditarRolByUsuario(response.data);
+                });
+            },
+            setEditarRolByUsuario(nIdUsuario){
+                var url = '/administracion/usuario/setEditarRolByUsuario'
+                axios.post(url, {
+                    'nIdUsuario'  :   nIdUsuario,
+                    'nIdRol'      :   this.fillCrearUsuario.nIdRol
+                }).then(response => {
                     this.fullscreenLoading = false;
                     this.$router.push('/usuario');
                 });
