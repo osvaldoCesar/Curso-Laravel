@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\Administracion\RolesController;
 use App\Http\Controllers\Administracion\UsersController;
+use App\Http\Controllers\Administracion\PermissionController;
 
 
 /*
@@ -28,6 +29,10 @@ Route::get("/administracion/rol/getListarRoles", [RolesController::class, "getLi
 Route::get("/administracion/rol/getListarPermisosByRol", [RolesController::class, "getListarPermisosByRol"]);
 Route::post("/administracion/rol/setRegistrarRolPermisos", [RolesController::class, "setRegistrarRolPermisos"]);
 Route::post("/administracion/rol/setEditarRolPermisos", [RolesController::class, "setEditarRolPermisos"]);
+
+// Permisos
+Route::get("/administracion/permiso/getListarPermisos", [PermissionController::class, "getListarPermisos"]);
+
 
 Route::post('/archivo/setRegistrarArchivo', [FilesController::class, "setRegistrarArchivo"]);
 
