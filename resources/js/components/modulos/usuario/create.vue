@@ -138,7 +138,7 @@ import axios from 'axios';
                 modalShow: false,
                 mostrarModal: {
                     display: 'block',
-                    bacground: '#0000006b',
+                    background: '#0000006b',
                 },
                 ocultarModal: {
                     display: 'none',

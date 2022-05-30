@@ -21,7 +21,6 @@
     opacity: 0;
 }
 
-
 .slide-fade-enter-active,
 .slide-fade-leave-active{
     transition: all 0.2s ease;
@@ -31,7 +30,6 @@
     transition: translateX(-10px);
     opacity: 0;
 }
-
 
 .btnWidth{
     width: 49% !important;
@@ -52,4 +50,8 @@
 .scrollTable{
     max-height: 350px !important;
     overflow: auto !important;
+}
+
+.modal{
+    background: #0000006b;
 }

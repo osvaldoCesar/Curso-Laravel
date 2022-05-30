@@ -48,6 +48,7 @@ export default new Router({
 
         // Permisos
         {path: '/permiso', component: require('./components/modulos/permiso/index').default},
+        {path: '/permiso/crear', component: require('./components/modulos/permiso/create').default},
 
         // Reportes
         {path: '/reporte', component: require('./components/modulos/reporte/index').default},

@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        <router-link class="btn btn-info btn-sm" :to="'/rol/crear'">
+                        <router-link class="btn btn-info btn-sm" :to="'/permiso/crear'">
                             <i class="fas fa-plus-square"></i> Nuevo Permiso
                         </router-link>
                     </div>
@@ -40,7 +40,7 @@
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Url Amigable</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" class="form-control" v-model="fillBsqPermiso.cUrl" @keyup.enter="getListarPermisos">
+                                                    <input type="text" class="form-control" v-model="fillBsqPermiso.cSlug" @keyup.enter="getListarPermisos">
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@ import axios from 'axios';
             return {
                 fillBsqPermiso: {
                     cNombre: '',
-                    cUrl: '',
+                    cSlug: '',
                 },
                 listPermisos: [],
                 fullscreenLoading: false,
@@ -158,7 +158,7 @@ import axios from 'axios';
         methods: {
             limpiarCriteriosBsq(){
                 this.fillBsqPermiso.cNombre  = '';
-                this.fillBsqPermiso.cUrl = '';
+                this.fillBsqPermiso.cSlug = '';
             },
             getListarPermisos(){
                 this.fullscreenLoading = true;
@@ -166,7 +166,7 @@ import axios from 'axios';
                 axios.get(url, {
                     params: {
                         'cNombre'  : this.fillBsqPermiso.cNombre,
-                        'cUrl' : this.fillBsqPermiso.cUrl,
+                        'cSlug' : this.fillBsqPermiso.cSlug,
                     }
                 }).then(response => {
                     this.inicializarPaginacion();
