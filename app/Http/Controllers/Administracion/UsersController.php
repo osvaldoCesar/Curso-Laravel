@@ -90,6 +90,15 @@ class UsersController extends Controller
         $cUsuario           =      ($cUsuario           ==      NULL) ? ($cUsuario          =   '')     :   $cUsuario;
         $cCorreo            =      ($cCorreo            ==      NULL) ? ($cCorreo           =   '')     :   $cCorreo;
         $cContrasena        =      ($cContrasena        ==      NULL) ? ($cContrasena       =   '')     :   $cContrasena;
+
+
+        // Crear un procedimiento para poder recibir el ID de la foto que tiene asignado el usuario y poderlo pasar a la variable
+        // $oFotografia en caso de no querer actualizar la foto
+        // $rpta        =      DB::select('call sp_Usuario_setEditarUsuario(?)',
+        // [
+        //     $nIdUsuario,
+        // ]);
+        
         $oFotografia        =      ($oFotografia        ==      NULL) ? ($oFotografia       =   NULL)   :   $oFotografia;
 
         $rpta        =      DB::select('call sp_Usuario_setEditarUsuario(?, ?, ?, ?, ?, ?, ?, ?)',
