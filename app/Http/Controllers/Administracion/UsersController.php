@@ -152,4 +152,67 @@ class UsersController extends Controller
         return $rpta;
     }
 
+    public function getListarPermisosByRolAsignado(Request $request){
+        if(!$request->ajax()) return redirect('/');
+
+        $nIdUsuario    =      $request->nIdUsuario;
+
+        $nIdUsuario   =      ($nIdUsuario   ==      NULL) ? ($nIdUsuario  =   '')     :   $nIdUsuario;
+
+        $rpta        =      DB::select('call sp_Usuario_getListarPermisosByRolAsignado(?)',
+                                                                    [
+                                                                        $nIdUsuario,
+                                                                    ]);
+        return $rpta;
+    }
+
+    public function getListarPermisosByUsuario(Request $request){
+        if(!$request->ajax()) return redirect('/');
+
+        $nIdUsuario    =      $request->nIdUsuario;
+
+        $nIdUsuario   =      ($nIdUsuario   ==      NULL) ? ($nIdUsuario  =   0)     :   $nIdUsuario;
+
+        $rpta        =      DB::select('call sp_Usuario_getListarPermisosByUsuario(?)',
+                                                                    [
+                                                                        $nIdUsuario,
+                                                                    ]);
+        return $rpta;
+    }
+
+    public function setRegistrarPermisosByUsuario(Request $request){
+        if(!$request->ajax()) return redirect('/');
+
+        $nIdUsuario    =      $request->nIdUsuario;
+
+        $nIdUsuario   =      ($nIdUsuario   ==      NULL) ? ($nIdUsuario  =   0)     :   $nIdUsuario;
+
+        try {
+            // Irá todo el código que deseamos realizar y se ejecuta el commit
+            DB::beginTransaction();
+
+            DB::select('call sp_Usuario_setEliminarPermisosByUsuario(?)',
+                                                                [
+                                                                    $nIdUsuario
+                                                                ]);
+
+            $listPermisos       =    $request->listPermisosFilter;
+            $listPermisosSize   =    sizeof($listPermisos);
+            if ($listPermisosSize > 0) {
+                foreach ($listPermisos as $key => $value) {
+                    if ($value['checked'] == true) {
+                        DB::select('call sp_Usuario_setRegistrarPermisosByUsuario(?, ?)',
+                                                                    [
+                                                                        $nIdUsuario,
+                                                                        $value['id']
+                                                                    ]);
+                    }
+                }
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            // Capturará algún error ocurrido en el try y se ejecuta el rollback
+            DB::rollBack();
+        }
+    }
 }

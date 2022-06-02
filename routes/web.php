@@ -24,7 +24,9 @@ Route::post("/administracion/usuario/setEditarUsuario", [UsersController::class,
 Route::post("/administracion/usuario/setCambiarEstadoUsuario", [UsersController::class, "setCambiarEstadoUsuario"]);
 Route::post("/administracion/usuario/setEditarRolByUsuario", [UsersController::class, "setEditarRolByUsuario"]);
 Route::get("/administracion/usuario/getRolByUsuario", [UsersController::class, "getRolByUsuario"]);
-
+Route::get('/administracion/usuario/getListarPermisosByRolAsignado', [UsersController::class, "getListarPermisosByRolAsignado"]);
+Route::get('/administracion/usuario/getListarPermisosByUsuario', [UsersController::class, "getListarPermisosByUsuario"]);
+Route::post('/administracion/usuario/setRegistrarPermisosByUsuario', [UsersController::class, "setRegistrarPermisosByUsuario"]);
 
 // Roles
 Route::get("/administracion/rol/getListarRoles", [RolesController::class, "getListarRoles"]);
