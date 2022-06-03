@@ -130,6 +130,8 @@ import axios from 'axios';
                 listPermisosByRolAsignado: [],
                 listPermisos: [],
                 listPermisosFilter: [],
+                listRolPermisosByUsuario: [],
+                listRolPermisosByUsuarioFilter: [],
                 fullscreenLoading: false,
                 modalShow: false,
                 mostrarModal: {
@@ -217,14 +219,32 @@ import axios from 'axios';
                     'nIdUsuario'             :  this.fillPermiso.nIdUsuario,
                     'listPermisosFilter'  :  this.listPermisosFilter
                 }).then(response => {
-                    this.fullscreenLoading = false;
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se otorgaron los permisos al usuario correctamente',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+                    this.getListarRolPermisosByUsuario();
+
                 });
+            },
+            getListarRolPermisosByUsuario(){
+                var ruta = '/administracion/usuario/getListarRolPermisosByUsuario';
+                axios.get(ruta).then(response => {
+                    this.listRolPermisosByUsuario = response.data;
+                    this.listRolPermisosByUsuarioFilter = [];
+                    this.filterListarRolPermisosByUsuario();
+                })
+            },
+            filterListarRolPermisosByUsuario(){
+                let me = this;
+                me.listRolPermisosByUsuario.map(function(x, y){
+                    me.listRolPermisosByUsuarioFilter.push(x.slug);
+                });
+                sessionStorage.setItem("listRolPermisosByUsuario", JSON.stringify(me.listRolPermisosByUsuarioFilter));
+                EventBus.$emit('notifyRolPermisosByUsuario', me.listRolPermisosByUsuarioFilter);
+                this.fullscreenLoading = false;
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se otorgaron los permisos al usuario correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             },
             validarRegistrarPermisosByUsuario(){
                 this.error = 0;

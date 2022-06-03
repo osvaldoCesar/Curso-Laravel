@@ -129,6 +129,8 @@ import axios from 'axios';
                 },
                 listPermisos: [],
                 listPermisosFilter: [],
+                listRolPermisosByUsuario: [],
+                listRolPermisosByUsuarioFilter: [],
                 fullscreenLoading: false,
                 modalShow: false,
                 mostrarModal: {
@@ -201,7 +203,7 @@ import axios from 'axios';
                     return;
                 }
                 this.fullscreenLoading = true;
-                console.log(this.fillEditarRol.listPermisosFilter);
+
                 var url = '/administracion/rol/setEditarRolPermisos'
                 axios.post(url, {
                     'nIdRol'              :  this.fillEditarRol.nIdRol,
@@ -209,14 +211,32 @@ import axios from 'axios';
                     'cSlug'               :  this.fillEditarRol.cSlug,
                     'listPermisosFilter'  :  this.listPermisosFilter
                 }).then(response => {
-                    this.fullscreenLoading = false;
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se actualizó el rol correctamente',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+                    this.getListarRolPermisosByUsuario();
                 });
+            },
+            getListarRolPermisosByUsuario(){
+                var ruta = '/administracion/usuario/getListarRolPermisosByUsuario';
+                axios.get(ruta).then(response => {
+                    this.listRolPermisosByUsuario = response.data;
+                    this.listRolPermisosByUsuarioFilter = [];
+                    this.filterListarRolPermisosByUsuario();
+                })
+            },
+            filterListarRolPermisosByUsuario(){
+                let me = this;
+                me.listRolPermisosByUsuario.map(function(x, y){
+                    me.listRolPermisosByUsuarioFilter.push(x.slug);
+                });
+
+                sessionStorage.setItem("listRolPermisosByUsuario", JSON.stringify(me.listRolPermisosByUsuarioFilter));
+                EventBus.$emit('notifyRolPermisosByUsuario', me.listRolPermisosByUsuarioFilter);
+                this.fullscreenLoading = false;
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se actualizó el rol correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             },
             validarEditarRolPermisos(){
                 this.error = 0;

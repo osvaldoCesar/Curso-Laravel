@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administracion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Administracion\UsersController;
 
@@ -98,7 +99,7 @@ class UsersController extends Controller
         // [
         //     $nIdUsuario,
         // ]);
-        
+
         $oFotografia        =      ($oFotografia        ==      NULL) ? ($oFotografia       =   NULL)   :   $oFotografia;
 
         $rpta        =      DB::select('call sp_Usuario_setEditarUsuario(?, ?, ?, ?, ?, ?, ?, ?)',
@@ -223,5 +224,23 @@ class UsersController extends Controller
             // Capturará algún error ocurrido en el try y se ejecuta el rollback
             DB::rollBack();
         }
+    }
+
+    public function getListarRolPermisosByUsuario(Request $request){
+        if(!$request->ajax()) return redirect('/');
+
+        $nIdUsuario    =      $request->nIdUsuario;
+
+        if(!$nIdUsuario){
+            $nIdUsuario     =   Auth::id();
+        }
+
+        $nIdUsuario   =      ($nIdUsuario   ==      NULL) ? ($nIdUsuario  =   0)     :   $nIdUsuario;
+
+        $rpta        =      DB::select('call sp_Usuario_getListarRolPermisosByUsuario(?)',
+                                                                    [
+                                                                        $nIdUsuario,
+                                                                    ]);
+        return $rpta;
     }
 }

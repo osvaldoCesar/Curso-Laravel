@@ -29,7 +29,10 @@ Route::get("/authenticate/getRefrescarUsuarioAutenticado", function (){
 });
 
 // Usuarios
+
+Route::get("/administracion/usuario/getListarRolPermisosByUsuario", [UsersController::class, "getListarRolPermisosByUsuario"]);
 Route::get("/administracion/usuario/getListarUsuarios", [UsersController::class, "getListarUsuarios"]);
+Route::post("/administracion/usuario/setRegistrarUsuario", [UsersController::class, "setRegistrarUsuario"]);
 Route::post("/administracion/usuario/setRegistrarUsuario", [UsersController::class, "setRegistrarUsuario"]);
 Route::post("/administracion/usuario/setEditarUsuario", [UsersController::class, "setEditarUsuario"]);
 Route::post("/administracion/usuario/setCambiarEstadoUsuario", [UsersController::class, "setCambiarEstadoUsuario"]);

@@ -37,63 +37,92 @@ import axios from 'axios';
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item has-treeview menu-open">
-                        <router-link :to="'/'" class="nav-link active">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>Dashboard</p>
-                        </router-link>
+                        <template v-if="listPermisos.includes('dashboard.index')">
+                            <router-link :to="'/'" class="nav-link active">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Dashboard</p>
+                            </router-link>
+                        </template>
                     </li>
-                    <li class="nav-header">OPERACIONES</li>
-                    <li class="nav-item">
-                        <router-link :to="'/pedido'" class="nav-link">
-                            <i class="nav-icon fas fa-cash-register"></i>
-                            <p>Pedidos</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link :to="'/cliente'" class="nav-link">
-                            <i class="nav-icon fas fa-user-friends"></i>
-                            <p>Clientes</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-header">CONFIGURACIÓN</li>
-                    <li class="nav-item">
-                        <router-link :to="'/categoria'" class="nav-link">
-                            <i class="fas fa-sitemap nav-icon"></i>
-                            <p>Categorías</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link :to="'/producto'" class="nav-link">
-                            <i class="fas fa-apple-alt nav-icon"></i>
-                            <p>Productos</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-header">ADMINISTRACIÓN</li>
-                    <li class="nav-item">
-                        <router-link :to="'/usuario'" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Usuarios</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link :to="'/rol'" class="nav-link">
-                            <i class="nav-icon fas fa-unlock-alt"></i>
-                            <p>Roles</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link :to="'/permiso'" class="nav-link">
-                            <i class="nav-icon fas fa-key"></i>
-                            <p>Permisos</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-header">REPORTES</li>
-                    <li class="nav-item">
-                        <router-link :to="'/reporte'" class="nav-link">
-                            <i class="nav-icon fas fa-file-export"></i>
-                            <p>Pedidos</p>
-                        </router-link>
-                    </li>
+                    <template v-if="listPermisos.includes('pedido.index', 'cliente.index')">
+                        <li class="nav-header">OPERACIONES</li>
+                        <li class="nav-item">
+                            <template v-if="listPermisos.includes('pedido.index')">
+                                <router-link :to="'/pedido'" class="nav-link">
+                                    <i class="nav-icon fas fa-cash-register"></i>
+                                    <p>Pedidos</p>
+                                </router-link>
+                            </template>
+                        </li>
+                        <li class="nav-item">
+                            <template v-if="listPermisos.includes('cliente.index')">
+                                <router-link :to="'/cliente'" class="nav-link">
+                                    <i class="nav-icon fas fa-user-friends"></i>
+                                    <p>Clientes</p>
+                                </router-link>
+                            </template>
+                        </li>
+                    </template>
+
+                    <template v-if="listPermisos.includes('categoria.index', 'producto.index')">
+                        <li class="nav-header">CONFIGURACIÓN</li>
+                        <li class="nav-item">
+                            <template v-if="listPermisos.includes('categoria.index')">
+                                <router-link :to="'/categoria'" class="nav-link">
+                                    <i class="fas fa-sitemap nav-icon"></i>
+                                    <p>Categorías</p>
+                                </router-link>
+                            </template>
+                        </li>
+                        <li class="nav-item">
+                            <template v-if="listPermisos.includes('producto.index')">
+                                <router-link :to="'/producto'" class="nav-link">
+                                    <i class="fas fa-apple-alt nav-icon"></i>
+                                    <p>Productos</p>
+                                </router-link>
+                            </template>
+                        </li>
+                    </template>
+
+                    <template v-if="listPermisos.includes('usuario.index', 'rol.index', 'permiso.index')">
+                        <li class="nav-header">ADMINISTRACIÓN</li>
+                        <li class="nav-item">
+                            <template v-if="listPermisos.includes('usuario.index')">
+                                <router-link :to="'/usuario'" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Usuarios</p>
+                                </router-link>
+                            </template>
+                        </li>
+                        <li class="nav-item">
+                            <template v-if="listPermisos.includes('rol.index')">
+                                <router-link :to="'/rol'" class="nav-link">
+                                    <i class="nav-icon fas fa-unlock-alt"></i>
+                                    <p>Roles</p>
+                                </router-link>
+                            </template>
+                        </li>
+                        <li class="nav-item">
+                            <template v-if="listPermisos.includes('permiso.index')">
+                                <router-link :to="'/permiso'" class="nav-link">
+                                    <i class="nav-icon fas fa-key"></i>
+                                    <p>Permisos</p>
+                                </router-link>
+                            </template>
+                        </li>
+                    </template>
+
+                    <template v-if="listPermisos.includes('reporte.pedido.index')">
+                        <li class="nav-header">REPORTES</li>
+                        <li class="nav-item">
+                            <template v-if="listPermisos.includes('reporte.pedido.index')">
+                                <router-link :to="'/pedido'" class="nav-link">
+                                    <i class="nav-icon fas fa-file-export"></i>
+                                    <p>Pedidos</p>
+                                </router-link>
+                            </template>
+                        </li>
+                    </template>
                 </ul>
             </nav>
         <!-- /.sidebar-menu -->
@@ -104,7 +133,7 @@ import axios from 'axios';
 
 <script>
     export default {
-        props: ['ruta', 'usuario'],
+        props: ['ruta', 'usuario', 'listPermisos'],
         data() {
             return {
                 fullscreenLoading: false,

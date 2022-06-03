@@ -59,6 +59,8 @@ import axios from 'axios';
                     cEmail: '',
                     cContrasena: '',
                 },
+                listRolPermisosByUsuario: [],
+                listRolPermisosByUsuarioFilter: [],
                 fullscreenLoading: false,
                 error: 0,
                 mensajeError: [],
@@ -74,16 +76,35 @@ import axios from 'axios';
                 axios.post(url,{
                     'cEmail'       :  this.fillLogin.cEmail,
                     'cContrasena'  :  this.fillLogin.cContrasena,
-                }).then(reponse =>{
-                    console.log( reponse.data );
-                    if (reponse.data.code == 401) {
+                }).then(response =>{
+                    // console.log( reponse.data );
+                    if (response.data.code == 401) {
                         this.loginFailed();
                     }
-                     if (reponse.data.code == 200) {
-                        this.loginSuccess();
+                     if (response.data.code == 200) {
+                        this.getListarRolPermisosByUsuario(response.data.authUser.id);
                     }
                     this.fullscreenLoading = false;
                 })
+            },
+            getListarRolPermisosByUsuario(id){
+                var ruta = '/administracion/usuario/getListarRolPermisosByUsuario';
+                axios.get(ruta, {
+                    params: {
+                        'nIdUsuario' : id
+                    }
+                }).then(response => {
+                    this.listRolPermisosByUsuario = response.data;
+                    this.filterListarRolPermisosByUsuario();
+                })
+            },
+            filterListarRolPermisosByUsuario(){
+                let me = this;
+                me.listRolPermisosByUsuario.map(function(x, y){
+                    me.listRolPermisosByUsuarioFilter.push(x.slug);
+                });
+                sessionStorage.setItem("listRolPermisosByUsuario", JSON.stringify(me.listRolPermisosByUsuarioFilter));
+                this.loginSuccess();
             },
             validarLogin(){
                 this.error = 0;

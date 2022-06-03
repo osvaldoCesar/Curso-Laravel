@@ -5,7 +5,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <Sidebar :ruta="ruta" :usuario="authUser"></Sidebar>
+        <Sidebar :ruta="ruta" :usuario="authUser" :listPermisos="listRolPermisosByUsuario"></Sidebar>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -38,13 +38,21 @@
         data() {
             return {
                 authUser: this.usuario,
+                listRolPermisosByUsuario: [],
             }
         },
         mounted() {
+            // console.log( JSON.parse(sessionStorage.getItem('listRolPermisosByUsuario')) );
+
+            this.listRolPermisosByUsuario   =   JSON.parse(sessionStorage.getItem('listRolPermisosByUsuario'));
+
             EventBus.$on('verifyAuthenticatedUser', data => {
                 console.log('Evento ejecutado desde el Componente App.vue');
                 // console.log(data);
                 this.authUser = data;
+            })
+            EventBus.$on('notifyRolPermisosByUsuario', data => {
+                this.listRolPermisosByUsuario = data;
             })
         },
     }
