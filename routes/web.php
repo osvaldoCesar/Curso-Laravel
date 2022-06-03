@@ -17,6 +17,9 @@ use App\Http\Controllers\Administracion\PermissionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Login
+Route::get("/authenticate/login");
+
 // Usuarios
 Route::get("/administracion/usuario/getListarUsuarios", [UsersController::class, "getListarUsuarios"]);
 Route::post("/administracion/usuario/setRegistrarUsuario", [UsersController::class, "setRegistrarUsuario"]);

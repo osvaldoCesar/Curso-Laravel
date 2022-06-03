@@ -24,7 +24,7 @@
                                 </template>
                             </div>
                             <h3 class="profile-username text-center">{{ cNombreCompleto }}</h3>
-                            <p class="text-muted text-center">Vendedor</p>
+                            <p class="text-muted text-center">{{fillVerUsuario.cNombreRol}}</p>
                         </div>
                     <!-- /.card-body -->
                     </div>
@@ -163,6 +163,7 @@
                     cContrasena: '',
                     oFotografia: '',
                     cRutaArchivo: '',
+                    cNombreRol: '',
                 },
                 form: new FormData,
                 fullscreenLoading: false,
@@ -180,6 +181,7 @@
         },
         mounted() {
             this.getUsuarioById();
+            this.getRolByUsuario();
         },
         computed: {
             cNombreCompleto(){
@@ -215,6 +217,17 @@
                 this.fillVerUsuario.cUsuario        =  data.username;
                 this.fillVerUsuario.cCorreo         =  data.email;
                 this.fillVerUsuario.cRutaArchivo    =  data.profile_image;
+            },
+            getRolByUsuario(){
+                var url = '/administracion/usuario/getRolByUsuario'
+                axios.get(url, {
+                    params: {
+                        'nIdUsuario' : this.fillEditarUsuario.nIdUsuario
+                    }
+                }).then(response => {
+                    this.fillVerUsuario.cNombreRol = (response.data.length == 0) ? '' : response.data[0].name;
+                    this.fullscreenLoading = false;
+                })
             },
             abrirModal(){
                 this.modalShow = !this.modalShow;
