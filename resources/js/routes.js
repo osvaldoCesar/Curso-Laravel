@@ -6,26 +6,26 @@ Vue.use(Router)
 export default new Router({
     routes: [
         // Login
-        {path: '/login', name: '/login', component: require('./components/modulos/authenticate/login').default},
+        {path: '/login', name: 'login', component: require('./components/modulos/authenticate/login').default},
 
         // Dashboard
-        {path: '/', component: require('./components/modulos/dashboard/index').default},
+        {path: '/', name: 'dashboard.index', component: require('./components/modulos/dashboard/index').default},
 
         // Pedidos
-        {path: '/pedido', component: require('./components/modulos/pedido/index').default},
+        {path: '/pedido', name: 'pedido.index', component: require('./components/modulos/pedido/index').default},
 
         // Clientes
-        {path: '/cliente', component: require('./components/modulos/cliente/index').default},
+        {path: '/cliente', name: 'cliente.index', component: require('./components/modulos/cliente/index').default},
 
         // Categorías
-        {path: '/categoria', component: require('./components/modulos/categoria/index').default},
+        {path: '/categoria', name: 'categoria.index', component: require('./components/modulos/categoria/index').default},
 
         // Productos
-        {path: '/producto', component: require('./components/modulos/producto/index').default},
+        {path: '/producto', name: 'producto.index', component: require('./components/modulos/producto/index').default},
 
         // Usuarios
-        {path: '/usuario', component: require('./components/modulos/usuario/index').default},
-        {path: '/usuario/crear', component: require('./components/modulos/usuario/create').default},
+        {path: '/usuario', name: 'usuario.index', component: require('./components/modulos/usuario/index').default},
+        {path: '/usuario/crear', name: 'usuario.crear', component: require('./components/modulos/usuario/create').default},
         {
             path: '/usuario/editar/:id',
             name: 'usuario.editar',
@@ -46,7 +46,7 @@ export default new Router({
         },
 
         // Roles
-        {path: '/rol', component: require('./components/modulos/rol/index').default},
+        {path: '/rol', name: 'rol.index', component: require('./components/modulos/rol/index').default},
         {path: '/rol/crear', component: require('./components/modulos/rol/create').default},
         {
             path: '/rol/editar/:id',
@@ -56,7 +56,7 @@ export default new Router({
         },
 
         // Permisos
-        {path: '/permiso', component: require('./components/modulos/permiso/index').default},
+        {path: '/permiso', name: 'permiso.index', component: require('./components/modulos/permiso/index').default},
         {path: '/permiso/crear', component: require('./components/modulos/permiso/create').default},
         {
             path: '/permiso/editar/:id',
@@ -66,7 +66,7 @@ export default new Router({
         },
 
         // Reportes
-        {path: '/reporte', component: require('./components/modulos/reporte/index').default},
+        {path: '/reporte', name: 'reporte.index', component: require('./components/modulos/reporte/index').default},
     ],
     mode: 'history',
     linkActiveClass: 'active',

@@ -12,7 +12,7 @@
                 <p class="login-box-msg">Ingresa tus credenciales para Iniciar Sesión</p>
                 <form method="post">
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" v-model="fillLogin.cEmail" placeholder="Email">
+                        <input type="email" class="form-control" @keyup.enter="login" v-model="fillLogin.cEmail" placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" v-model="fillLogin.cContrasena" placeholder="Password">
+                        <input type="password" class="form-control" @keyup.enter="login" v-model="fillLogin.cContrasena" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -72,12 +72,16 @@ import axios from 'axios';
                 this.fullscreenLoading = true;
                 var url = '/authenticate/login'
                 axios.post(url,{
-                    params: {
-                        'cEmail'       :  this.fillLogin.cEmail,
-                        'cContrasena'  :  this.fillLogin.cContrasena,
-                    }
+                    'cEmail'       :  this.fillLogin.cEmail,
+                    'cContrasena'  :  this.fillLogin.cContrasena,
                 }).then(reponse =>{
-                    console.log( response.data );
+                    console.log( reponse.data );
+                    if (reponse.data.code == 401) {
+                        this.loginFailed();
+                    }
+                     if (reponse.data.code == 200) {
+                        this.loginSuccess();
+                    }
                     this.fullscreenLoading = false;
                 })
             },
@@ -96,6 +100,22 @@ import axios from 'axios';
                     this.error = 1;
                 }
                 return this.error;
+            },
+            loginFailed(){
+                this.error = 0;
+                this.mensajeError = [];
+
+                this.mensajeError.push("Estas credenciales no coinciden con nuestros registros");
+                this.fillLogin.cContrasena = '';
+
+                if(this.mensajeError.length){
+                    this.error = 1;
+                }
+                return this.error;
+            },
+            loginSuccess(){
+                this.$router.push({name: 'dashboard.index'});
+                location.reload();
             }
         },
     }

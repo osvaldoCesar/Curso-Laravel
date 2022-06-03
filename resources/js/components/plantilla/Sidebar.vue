@@ -1,3 +1,4 @@
+import axios from 'axios';
 <template>
     <aside class="main-sidebar sidebar-dark-primary elevation-4 sidebar-no-expand">
         <!-- Brand Logo -->
@@ -10,10 +11,25 @@
             <!-- Sidebar user (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img :src="ruta + '/img/avatar.png'" class="img-circle elevation-2" alt="Osvaldo César">
+                    <template v-if="!usuario.file_id">
+                        <img :src="ruta + '/img/avatar.png'" class="img-circle elevation-2" :alt="usuario.fullname">
+                    </template>
+                    <template v-else>
+                        <img :src="usuario.file.path" class="img-circle elevation-2" :alt="usuario.fullname" style="height: 34px !important">
+                    </template>
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Osvaldo César</a>
+                    <router-link class="d-block" :to="{name:'usuario.ver', params:{id: usuario.id}}">
+                        {{usuario.fullname}}
+                    </router-link>
+                </div>
+            </div>
+
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="info">
+                    <a href="#" class="d-block" @click.prevent="logout" v-loading.fullscreen.lock="fullscreenLoading">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </a>
                 </div>
             </div>
 
@@ -88,7 +104,26 @@
 
 <script>
     export default {
-        props: ['ruta']
+        props: ['ruta', 'usuario'],
+        data() {
+            return {
+                fullscreenLoading: false,
+            }
+        },
+        methods: {
+            logout(){
+                this.fullscreenLoading = true;
+                var url = '/authenticate/logout'
+                axios.post(url).then(response => {
+                    if (response.data.code == 204) {
+                        this.$router.push({name: 'login'})
+                        location.reload();
+                        this.fullscreenLoading = false;
+                    }
+                })
+
+            }
+        },
     }
 </script>
 <style>

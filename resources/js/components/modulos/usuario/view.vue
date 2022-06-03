@@ -140,6 +140,8 @@
 </template>
 
 <script>
+import { EventBus } from '../../../app';
+
     export default {
         data() {
             return {
@@ -252,7 +254,6 @@
                 const config = { headers: {'Content-Type': 'multipart/form-data'}}
                 var url = '/archivo/setRegistrarArchivo'
                 axios.post(url, this.form, config).then(response =>{
-                    console.log( response );
                     var nIdFile =  response.data[0].nIdFile;
                     this.setGuardarUsuario(nIdFile);
                 })
@@ -269,6 +270,14 @@
                     'cContrasena'       :       this.fillEditarUsuario.cContrasena,
                     'oFotografia'       :       nIdFile,
                 }).then(response => {
+                    this.getRefrescarUsuarioAutenticado();
+                });
+            },
+            getRefrescarUsuarioAutenticado(){
+                var url = '/authenticate/getRefrescarUsuarioAutenticado'
+                axios.get(url).then(response=>{
+                    // console.log( response.data );
+                    EventBus.$emit('verifyAuthenticatedUser', response.data);
                     this.fullscreenLoading = false;
                     this.getUsuarioById();
                     Swal.fire({
@@ -277,7 +286,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                });
+                })
             },
             validarRegistroUsuario(){
                 this.error = 0;

@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilesController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Administracion\RolesController;
 use App\Http\Controllers\Administracion\UsersController;
 use App\Http\Controllers\Administracion\PermissionController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -17,8 +19,14 @@ use App\Http\Controllers\Administracion\PermissionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // Login
-Route::get("/authenticate/login");
+// Auth::routes();
+Route::post("/authenticate/login", [LoginController::class,"login"]);
+Route::post("/authenticate/logout", [LoginController::class,"logout"]);
+Route::get("/authenticate/getRefrescarUsuarioAutenticado", function (){
+    return Auth::user()->load('file');
+});
 
 // Usuarios
 Route::get("/administracion/usuario/getListarUsuarios", [UsersController::class, "getListarUsuarios"]);
@@ -56,3 +64,7 @@ Route::get('/{optional?}', function () {
 // Route::get('/', 'Administracion\UsersController@getListarUsuarios')->name('getListarUsuarios');
 // Route::get('/administracion/usuario/getListarUsuarios', 'Administracion\UsersController@getListarUsuarios')->name('home');
 // Route::get('/administracion/usuario/getListarUsuarios','Administracion\UsersController@getListarUsuarios');
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

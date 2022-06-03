@@ -4,7 +4,7 @@
 <body class="sidebar-mini layout-fixed sidebar-collapse">
     <div class="wrapper" id="app">
         @if (Auth::check())
-            <App ruta="{{route('basepath')}}"></App>
+            <App ruta="{{route('basepath')}}" :usuario="{{Auth::user()->load('file')}}"></App>
         @else
             <Auth ruta="{{route('basepath')}}"></Auth>
         @endif
